@@ -8,13 +8,43 @@
 import SwiftUI
 
 struct ExperiencesView: View {
+    
+    //MARK:- Varibale
+    
+    var experiences: [Experience]
+    @State var showExperiences = true
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment:.leading,spacing: 24){
+            HStack{
+                Text("Experiences")
+                    .fontWeight(.bold)
+                    .font(.title2)
+                    .opacity(0.9)
+                Button {
+                    withAnimation(.easeInOut(duration: 0.35)){
+                        showExperiences.toggle()
+                    }
+                    
+                } label: {
+                    Image(systemName: "chevron.up")
+                        .rotationEffect(self.showExperiences ? .zero: .degrees(180))
+                }
+                .buttonStyle(PlainButtonStyle())
+
+            }
+            .padding(.bottom,14)
+            if (showExperiences){
+                
+                ForEach(experiences){exp in
+                    ExperienceView(experience: exp)
+                }
+                
+                
+            }
+            
+        }
     }
 }
 
-struct ExperiencesView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExperiencesView()
-    }
-}
+
